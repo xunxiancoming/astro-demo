@@ -1,14 +1,44 @@
 ---
 import Layout from "../layouts/Layout.astro";
+
+const pageTitle = "关于我33";
+
+const identity = {
+  firstName: "Jinlong",
+  lastName: "Liu",
+  age: 26,
+  occupation: "Web Developer",
+  email: "jinlongliu@gmail.com",
+};
+
+const skills = ["HTML", "CSS", "JavaScript", "React", "Node.js", "MongoDB"];
+
+const skillColor = "navy";
 ---
 
 <Layout>
   <body>
     <h1>我的Astro网站</h1>
-    <h1>关于我</h1>
+    <h1>{pageTitle}</h1>
     <h2>....和我的新Astro网站！</h2>
     <p>我正咋学习Astro，Astro真是个好东西！</p>
-
-    <p></p>
+    <ul>
+      {skills.map((skill) => <li class="skill">{skill}</li>)}
+    </ul>
+    <p>
+      我的名字叫{identity.firstName}，今年{identity.age}岁，职业是{
+        identity.occupation
+      }，邮箱是{identity.email}。
+    </p>
   </body>
 </Layout>
+
+<style define:vars={{ skillColor }}>
+  h1 {
+    color: purple;
+  }
+
+  .skill {
+    color: var(--skillColor);
+  }
+</style>
