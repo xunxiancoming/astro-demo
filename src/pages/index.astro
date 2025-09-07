@@ -1,4 +1,5 @@
 ---
+import Greeting from "../components/greet";
 import Welcome from "../components/Welcome.astro";
 import Layout from "../layouts/Layout.astro";
 
@@ -8,4 +9,5 @@ import Layout from "../layouts/Layout.astro";
 
 <Layout pageTitle="首页2">
   <Welcome />
+  <Greeting client:load messages={["Hi", "Hello", "Howdy", "Hey there"]} />
 </Layout>
