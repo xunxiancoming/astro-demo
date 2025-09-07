@@ -1,13 +1,15 @@
 ---
 import Hamburger from "./hamburger.astro";
 import Navigation from "./navigation.astro";
+import { ModeToggle } from "./react/modeToggle";
 import ThemeIcon from "./themeIcon.astro";
+import { Button } from "./ui/button";
 ---
 
 <header>
-  <nav>
+  <nav class="nav">
     <Hamburger />
-    <ThemeIcon />
     <Navigation />
+    <ModeToggle client:load />
   </nav>
 </header>
