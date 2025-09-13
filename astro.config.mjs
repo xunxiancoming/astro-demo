@@ -10,7 +10,6 @@ import react from "@astrojs/react";
 // https://astro.build/config
 export default defineConfig({
   site: "https://kblog2.netlify.app",
-  output: "static",
   integrations: [
     preact({ include: "**/preact/*" }),
     react({ include: "**/react/*" }),
