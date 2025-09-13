@@ -1,4 +1,6 @@
 ---
+import { BriefCard } from "@/components/react/briefCard";
+import { Card } from "@/components/ui/card";
 import Layout from "../layouts/Layout.astro";
 const allPosts = Object.values(
   import.meta.glob("./posts/*.md", { eager: true })
@@ -6,13 +8,18 @@ const allPosts = Object.values(
 ---
 
 <Layout pageTitle="我的博客">
-  <ul>
+  <Card className="flex flex-col gap-4">
     {
       allPosts.map((post) => (
-        <li>
-          <a href={post.url}>{post.frontmatter.title}</a>
-        </li>
+        <BriefCard
+          title={post.frontmatter.title}
+          description="xxxxxxxx"
+          tags={["技术", "前端"]}
+          date={"2025-01-01"}
+          headImg={"/bg.jpg"}
+          url={post.url}
+        />
       ))
     }
-  </ul>
+  </Card>
 </Layout>

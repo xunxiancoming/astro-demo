@@ -1,15 +1,14 @@
 ---
 import Hamburger from "./hamburger.astro";
 import Navigation from "./navigation.astro";
-import { ModeToggle } from "./react/modeToggle";
 import ThemeIcon from "./themeIcon.astro";
-import { Button } from "./ui/button";
+import { Card } from "./ui/card";
 ---
 
 <header>
-  <nav class="nav">
+  <Card className="w-full my-4 flex h-16 items-center justify-between">
     <Hamburger />
     <Navigation />
-    <ModeToggle client:load />
-  </nav>
+    <ThemeIcon />
+  </Card>
 </header>

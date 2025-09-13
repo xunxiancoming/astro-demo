@@ -1,36 +1,32 @@
 ---
-import { ModeToggle } from "@/components/react/modeToggle";
-import Greeting from "@/components/preact/greet";
+import Ad from "@/components/ad.astro";
+import Profile from "@/components/profile.astro";
+import { BriefCard } from "@/components/react/briefCard";
+import { Card } from "@/components/ui/card";
 import Layout from "../layouts/Layout.astro";
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
 <Layout pageTitle="kblog2-技术共享">
-  <Greeting client:load messages={["你好", "Hello", "今日は", "Bonjour"]} />
+  <div class="flex gap-4">
+    <Ad client:load />
+    <Profile />
+  </div>
+  <Card className="mt-4 flex flex-col gap-4">
+    <BriefCard
+      title="学习Astro心得"
+      description="Astro是一款基于React和Snowpack的静态网站生成器，它可以帮助你快速、轻松地构建网站。"
+      tags={["React", "Snowpack"]}
+      date="2022-01-01"
+      headImg="/bg.jpg"
+      url="https://www.baidu.com"
+    />
+    <BriefCard
+      title="学习Astro心得"
+      description="Astro是一款基于React和Snowpack的静态网站生成器，它可以帮助你快速、轻松地构建网站。"
+      tags={["React", "Snowpack"]}
+      date="2022-01-01"
+      headImg="/avatar.jpeg"
+      url="https://www.baidu.com"
+    />
+  </Card>
 </Layout>
-
-<script is:inline>
-  const getThemePreference = () => {
-    if (typeof localStorage !== "undefined" && localStorage.getItem("theme")) {
-      return localStorage.getItem("theme");
-    }
-    return window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
-  };
-  const isDark = getThemePreference() === "dark";
-  document.documentElement.classList[isDark ? "add" : "remove"]("dark");
-
-  if (typeof localStorage !== "undefined") {
-    const observer = new MutationObserver(() => {
-      const isDark = document.documentElement.classList.contains("dark");
-      localStorage.setItem("theme", isDark ? "dark" : "light");
-    });
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ["class"],
-    });
-  }
-</script>
