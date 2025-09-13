@@ -12,7 +12,10 @@ import { Card } from "./ui/card";
       class="w-24 h-24 rounded-full outline-2"
     />
   </div>
-  <Greeting client:load messages={["你好", "Hello", "今日は", "Bonjour"]} />
+  <Greeting
+    client:only="preact"
+    messages={["你好", "Hello", "今日は", "Bonjour"]}
+  />
   <div class="my-2 gap-1 flex flex-col">
     <Badge
       variant="secondary"
