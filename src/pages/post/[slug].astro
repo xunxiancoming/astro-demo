@@ -2,10 +2,13 @@
 import Recommend from "@/components/recommend.astro";
 import Title from "@/components/title.astro";
 import Layout from "@/layouts/Layout.astro";
+import { ChevronLeft, ChevronRight } from "@lucide/astro";
 
 export function getStaticPaths() {
-  return [{ params: { slug: 1 } }, { params: { slug: 2 } }];
+  return [{ params: { slug: "1" } }, { params: { slug: "2" } }];
 }
+
+const { slug } = Astro.params;
 ---
 
 <Layout>
@@ -38,6 +41,18 @@ export function getStaticPaths() {
       one successful way we keep the human connection going throughout the rest
       of the year.
     </div>
+  </div>
+
+  <div class="flex gap-4 my-8 justify-between">
+    <span
+      class="text-xl hover:text-orange-500 dark:hover:text-purple-400 cursor-pointer"
+    >
+      <a href={`/post/${parseInt(slug) - 1}`}><ChevronLeft /></a>
+    </span>
+    <span
+      class="text-xl hover:text-orange-500 dark:hover:text-purple-400 cursor-pointer"
+      ><a href={`/post/${parseInt(slug) + 1}`}><ChevronRight /></a>
+    </span>
   </div>
 
   <Title title="You might also like" />

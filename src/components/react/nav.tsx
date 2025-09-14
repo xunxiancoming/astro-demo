@@ -5,15 +5,15 @@ export const Nav = ({ className }: { className?: string }) => {
     <div className={`${className}`}>
       <div className="flex items-center gap-2">
         <Search
-          className="text-slate-500 cursor-pointer block sm:hidden"
+          className="text-slate-500 dark:text-slate-400 cursor-pointer block sm:hidden"
           size="16"
         />
         <input
           placeholder="Search"
-          className="outline-none text-slate-500 w-16 focus:w-full sm:focus:w-48 transition-all duration-500"
+          className="outline-none text-slate-500 dark:text-slate-400 w-16 focus:w-full sm:focus:w-48 transition-all duration-500"
         />
         <Search
-          className="text-slate-500 cursor-pointer hidden sm:block"
+          className="text-slate-500 dark:text-slate-400 cursor-pointer hidden sm:block"
           size="16"
         />
       </div>
