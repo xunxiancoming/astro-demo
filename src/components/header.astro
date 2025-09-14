@@ -13,13 +13,15 @@ import ThemeIcon from "./themeIcon.astro";
       &nbsp;/ <span class="hover:text-slate-500">Latest</span></a
     >
   </div>
-  <div class="hidden sm:block">
-    <nav class="flex items-center gap-4">
-      <Nav className="flex items-center gap-4" />
-      <ThemeIcon />
-    </nav>
-  </div>
-  <div class="block sm:hidden">
-    <Menu client:only="react" />
+  <div class="flex gap-4">
+    <div class="hidden sm:block">
+      <nav class="flex items-center gap-4">
+        <Nav className="flex items-center gap-4" />
+      </nav>
+    </div>
+    <div class="block flex gap-2 sm:hidden">
+      <Menu client:only="react" />
+    </div>
+    <ThemeIcon />
   </div>
 </div>

@@ -6,7 +6,7 @@ export function Menu() {
   return (
     <Drawer direction="left">
       <DrawerTrigger asChild>
-        <SquareMenu />
+        <SquareMenu size={20} />
       </DrawerTrigger>
       <DrawerContent>
         <div className="mx-auto w-full max-w-sm">
