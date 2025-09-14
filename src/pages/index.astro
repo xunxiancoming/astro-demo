@@ -13,5 +13,24 @@ import Layout from "../layouts/Layout.astro";
   <Title title="Tags" />
   <Tags tags={["JavaScript", "TypeScript", "React", "Vue", "Svelte"]} />
   <Title title="Posts" />
-  {new Array(10).fill(undefined).map(() => <PostAbstract />)}
+
+  <PostAbstract
+    posts={[
+      {
+        date: "2022 · 01 · 01",
+        title: "Hello, world!",
+        description: "Welcome to my blog!",
+      },
+      {
+        date: "2022 · 01 · 01",
+        title: "Hello, world!",
+        description: "Welcome to my blog!",
+      },
+      {
+        date: "2022 · 01 · 01",
+        title: "Hello, world!",
+        description: "Welcome to my blog!",
+      },
+    ]}
+  />
 </Layout>
