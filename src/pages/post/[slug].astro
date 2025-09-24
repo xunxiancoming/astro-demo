@@ -9,12 +9,18 @@ import dayjs from "dayjs";
 import { marked } from "marked";
 
 export async function getStaticPaths() {
-  const articles = await fetchApi<Article[]>({
-    endpoint: "articles?populate[blocks][populate]=*",
-    wrappedByKey: "data",
-  });
+  const articles =
+    (await fetchApi<Article[]>({
+      endpoint: "articles?populate[blocks][populate]=*",
+      wrappedByKey: "data",
+    })) || [];
   if (articles.length === 0) {
-    return [{ params: { slug: "no-article" } }];
+    return [
+      {
+        params: { slug: "no-article" },
+        props: { article: { title: "No article found" } },
+      },
+    ];
   }
   return (
     articles?.map((article, index) => ({
