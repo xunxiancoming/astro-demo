@@ -13,6 +13,9 @@ export async function getStaticPaths() {
     endpoint: "articles?populate[blocks][populate]=*",
     wrappedByKey: "data",
   });
+  if (articles.length === 0) {
+    return [{ params: { slug: "no-article" } }];
+  }
   return (
     articles?.map((article, index) => ({
       params: {
