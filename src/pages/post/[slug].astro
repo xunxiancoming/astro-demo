@@ -13,16 +13,18 @@ export async function getStaticPaths() {
     endpoint: "articles?populate[blocks][populate]=*",
     wrappedByKey: "data",
   });
-  return articles.map((article, index) => ({
-    params: {
-      slug: article.documentId,
-    },
-    props: {
-      prev: index === 0 ? null : articles[index - 1],
-      next: index === articles.length - 1 ? null : articles[index + 1],
-      article,
-    },
-  }));
+  return (
+    articles?.map((article, index) => ({
+      params: {
+        slug: article.documentId,
+      },
+      props: {
+        prev: index === 0 ? null : articles[index - 1],
+        next: index === articles.length - 1 ? null : articles[index + 1],
+        article,
+      },
+    })) || []
+  );
 }
 const { article, prev, next } = Astro.props as {
   article: Article;
