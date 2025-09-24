@@ -1,6 +1,7 @@
 ---
+import type Article from "@/interfaces/article";
 interface Props {
-  posts: { date: string; title: string; description: string }[];
+  posts: Pick<Article, "documentId" | "description" | "createdAt" | "title">[];
 }
 
 const { posts } = Astro.props;
@@ -23,11 +24,11 @@ const { posts } = Astro.props;
             <div class="absolute left-4 -translate-x-1/2 w-3 h-3 bg-orange-500 dark:bg-purple-500 rounded-full border-black" />
             <div class="ml-8 -translate-y-1">
               <span class="text-slate-500 dark:text-slate-400 text-sm">
-                {item.date}
+                {item.createdAt}
               </span>
               <div class="flex flex-col gap-1">
                 <h2 class="dark:text-slate-300 cursor-pointer underline decoration-wavy hover:text-orange-500 dark:hover:text-purple-500">
-                  <a href="/post/1"> {item.title} </a>
+                  <a href={`/post/${item.documentId}`}>{item.title}</a>
                 </h2>
                 <p>{item.description}</p>
               </div>

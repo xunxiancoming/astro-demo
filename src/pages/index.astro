@@ -3,33 +3,31 @@ import Abstract from "@/components/abstract.astro";
 import PostAbstract from "@/components/postAbstract.astro";
 import Tags from "@/components/tags.astro";
 import Title from "@/components/title.astro";
+import fetchApi from "@/lib/strapi";
+import dayjs from "dayjs";
+import type Article from "../interfaces/article";
 import Layout from "../layouts/Layout.astro";
+
+const articles =
+  (await fetchApi<Article[]>({
+    endpoint: "articles",
+    wrappedByKey: "data",
+  })) || [];
 ---
 
 <Layout pageTitle="kblog2-技术共享">
   <div class="flex gap-4"></div>
   <Title title="Latest" />
-  <Abstract />
+  <Abstract post={articles[0]} />
   <Title title="Tags" />
   <Tags tags={["JavaScript", "TypeScript", "React", "Vue", "Svelte"]} />
   <Title title="Posts" />
   <PostAbstract
-    posts={[
-      {
-        date: "2022 · 01 · 01",
-        title: "Hello, world!",
-        description: "Welcome to my blog!",
-      },
-      {
-        date: "2022 · 01 · 01",
-        title: "Hello, world!",
-        description: "Welcome to my blog!",
-      },
-      {
-        date: "2022 · 01 · 01",
-        title: "Hello, world!",
-        description: "Welcome to my blog!",
-      },
-    ]}
+    posts={articles.map(({ createdAt, title, description, documentId }) => ({
+      createdAt: dayjs(createdAt).format("YYYY · MM · DD"),
+      title,
+      description,
+      documentId,
+    }))}
   />
 </Layout>

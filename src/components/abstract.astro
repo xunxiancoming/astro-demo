@@ -1,14 +1,20 @@
+---
+import type Article from "@/interfaces/article";
+import dayjs from "dayjs";
+
+const { post } = Astro.props as { post: Article };
+---
+
 <div class="flex flex-col gap-1">
   <h1
     class="dark:text-slate-300 text-xl hover:text-orange-500 dark:hover:text-purple-500 cursor-pointer"
   >
-    I'm learning Astro and nestjs
+    <a href=`/post/${post.documentId}`>{post.title}</a>
   </h1>
   <div class="text-slate-600 dark:text-slate-400">
-    July 31, 2025 🤗 1 minute read
+    {dayjs(post.createdAt).format("MMMM DD, YYYY")} 🤗 1 minute read
   </div>
   <p class="text-slate-600 dark:text-slate-400">
-    Astro is a new framework for building static websites and Astro is built on
-    top of NestJS.
+    {post.description}
   </p>
 </div>

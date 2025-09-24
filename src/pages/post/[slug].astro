@@ -1,57 +1,75 @@
 ---
 import Recommend from "@/components/recommend.astro";
 import Title from "@/components/title.astro";
+import type Article from "@/interfaces/article";
 import Layout from "@/layouts/Layout.astro";
+import fetchApi from "@/lib/strapi";
 import { ChevronLeft, ChevronRight } from "@lucide/astro";
+import dayjs from "dayjs";
+import { marked } from "marked";
 
-export function getStaticPaths() {
-  return [{ params: { slug: "1" } }, { params: { slug: "2" } }];
+export async function getStaticPaths() {
+  const articles = await fetchApi<Article[]>({
+    endpoint: "articles?populate[blocks][populate]=*",
+    wrappedByKey: "data",
+  });
+  return articles.map((article, index) => ({
+    params: {
+      slug: article.documentId,
+    },
+    props: {
+      prev: index === 0 ? null : articles[index - 1],
+      next: index === articles.length - 1 ? null : articles[index + 1],
+      article,
+    },
+  }));
 }
-
-const { slug } = Astro.params;
+const { article, prev, next } = Astro.props as {
+  article: Article;
+  prev: Article;
+  next: Article;
+};
 ---
 
 <Layout>
   <div class="flex flex-col gap-4">
-    <h1 class="text-2xl">If you're remote, ramble</h1>
-    <p class="mb-2">July 31, 2025 😊 1 minute read</p>
+    <h1 class="text-2xl">{article.title}</h1>
+    <p class="mb-2">
+      {dayjs(article.createdAt).format("MMMM D, YYYY")} 😊 1 minute read
+    </p>
 
     <div class="leading-[32px] text-lg">
-      A tip for remote teams of 2-10 people. Create a personal “ramblings”
-      channel for each teammate in your team’s chat app of choice. Ramblings
-      channels let everyone share what’s on their mind without cluttering group
-      channels. Think of them as personal journals or microblogs inside your
-      team’s chat app, a lightweight way to add ambient social cohesion. People
-      typically post short updates 1-3 times per week. Common topics include:
-      ideas related to current projects musings about blog posts, articles, user
-      feedback “what if” suggestions photos from recent trips or hobbies rubber
-      ducking a problem Each ramblings channel should be named after the team
-      member, and only that person can post top-level messages. Others can reply
-      in threads, but not start new ones. All the ramblings channels should be
-      in a Ramblings section at the bottom of the channel list. They should be
-      muted by default, with no expectation that anyone else will read them. We
-      started experimenting with ramblings at Obsidian two years ago, and
-      they’ve been surprisingly sticky. We have no scheduled meetings, so
-      ramblings are our equivalent of water cooler talk. We want as much deep
-      focus time as possible, so ramblings help us stay connected while
-      minimizing interruptions. Because they are so free and loose, some of our
-      best ideas emerge from ramblings. They’re often the source of feature
-      ideas, small prototypes, and creative solutions to long-standing problems.
-      About once a year, we do a week-long in-person meetup. Ramblings have been
-      one successful way we keep the human connection going throughout the rest
-      of the year.
+      <article
+        class="prose max-w-none dark:prose-headings:text-slate-400 dark:prose-p:text-slate-400 dark:prose-li:text-slate-400 dark:prose-a:text-slate-400"
+        set:html={marked.parse(article.blocks?.[0]?.body)}
+      />
     </div>
   </div>
 
   <div class="flex gap-4 my-8 justify-between">
     <span
-      class="text-xl hover:text-orange-500 dark:hover:text-purple-400 cursor-pointer"
+      class="text-xl hover:text-orange-500 dark:hover:text-purple-400 cursor-pointer flex items-center"
     >
-      <a href={`/post/${parseInt(slug) - 1}`}><ChevronLeft /></a>
+      <ChevronLeft />
+      {
+        prev ? (
+          <a href={`/post/${prev.documentId}`}>{prev.title}</a>
+        ) : (
+          "no previous page"
+        )
+      }
     </span>
     <span
-      class="text-xl hover:text-orange-500 dark:hover:text-purple-400 cursor-pointer"
-      ><a href={`/post/${parseInt(slug) + 1}`}><ChevronRight /></a>
+      class="text-xl hover:text-orange-500 dark:hover:text-purple-400 cursor-pointer flex items-center"
+    >
+      {
+        next ? (
+          <a href={`/post/${next.documentId}`}>{next.title}</a>
+        ) : (
+          "no next page"
+        )
+      }
+      <ChevronRight />
     </span>
   </div>
 
