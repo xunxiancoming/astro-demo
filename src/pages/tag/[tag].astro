@@ -12,6 +12,8 @@ export async function getStaticPaths() {
       wrappedByKey: "data",
     })) || [];
 
+  console.log(data, "000");
+
   return data.map((item) => {
     return {
       params: {
@@ -24,7 +26,7 @@ export async function getStaticPaths() {
   });
 }
 
-const { articles } = Astro.props;
+const { articles = [] } = Astro.props;
 ---
 
 <Layout>

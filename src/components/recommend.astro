@@ -8,10 +8,8 @@ const articles =
 const randomIndex = new Set(
   new Array(3).fill(0).map(() => Math.floor(Math.random() * articles.length))
 );
-const recommendedArticles = articles.filter((_, index) =>
-  randomIndex.has(index)
-);
-console.log(randomIndex);
+const recommendedArticles =
+  articles.filter((_, index) => randomIndex.has(index)) || [];
 ---
 
 <div>
