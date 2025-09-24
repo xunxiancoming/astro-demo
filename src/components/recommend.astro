@@ -1,18 +1,32 @@
+---
+import type Article from "@/interfaces/article";
+import fetchApi from "@/lib/strapi";
+
+const articles =
+  (await fetchApi<Article[]>({ endpoint: "articles", wrappedByKey: "data" })) ||
+  [];
+const randomIndex = new Set(
+  new Array(3).fill(0).map(() => Math.floor(Math.random() * articles.length))
+);
+const recommendedArticles = articles.filter((_, index) =>
+  randomIndex.has(index)
+);
+console.log(randomIndex);
+---
+
 <div>
   <ul class="flex flex-col gap-2">
-    <li>
-      <a
-        href="#"
-        class="hover:underline hover:decoration-wavy hover:text-orange-500 dark:hover:text-purple-500"
-        >Recommended for you</a
-      >
-    </li>
-    <li>
-      <a
-        href="#"
-        class="hover:underline hover:decoration-wavy hover:text-orange-500 dark:hover:text-purple-500"
-        >Recommended for you</a
-      >
-    </li>
+    {
+      recommendedArticles.map((item) => (
+        <li>
+          <a
+            href={`/post/${item.documentId}`}
+            class="hover:underline hover:decoration-wavy hover:text-orange-500 dark:hover:text-purple-500"
+          >
+            {item.title}
+          </a>
+        </li>
+      ))
+    }
   </ul>
 </div>

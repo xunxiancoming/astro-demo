@@ -1,0 +1,45 @@
+---
+import Title from "@/components/title.astro";
+import type { ArticleCategory } from "@/interfaces/articleCategory";
+import Layout from "@/layouts/Layout.astro";
+import fetchApi from "@/lib/strapi";
+import dayjs from "dayjs";
+
+export async function getStaticPaths() {
+  const data =
+    (await fetchApi<ArticleCategory[]>({
+      endpoint: "categories?populate=*",
+      wrappedByKey: "data",
+    })) || [];
+
+  return data.map((item) => {
+    return {
+      params: {
+        tag: item.name,
+      },
+      props: {
+        articles: item.articles,
+      },
+    };
+  });
+}
+
+const { articles } = Astro.props;
+---
+
+<Layout>
+  <Title title={`Tag 🙈 ${Astro.params.tag}`} />
+  {
+    articles.map((item) => (
+      <div class="my-2 flex gap-4">
+        <span class="">{dayjs(item.createdAt).format("YYYY · MM · DD")}</span>
+        <a
+          href={`/post/${item.documentId}`}
+          class="underline decoration-wavy hover:text-orange-500 dark:hover:text-purple-500"
+        >
+          {item.title}
+        </a>
+      </div>
+    ))
+  }
+</Layout>
