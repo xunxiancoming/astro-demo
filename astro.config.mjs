@@ -10,7 +10,6 @@ import react from "@astrojs/react";
 // https://astro.build/config
 export default defineConfig({
   site: "https://xuanxiancoming.github.io",
-  base: "/astro-demo",
   integrations: [
     preact({ include: "**/preact/*" }),
     react({ include: "**/react/*" }),
