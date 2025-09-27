@@ -26,10 +26,16 @@ export const Nav = ({ className }: { className?: string }) => {
           onClick={() => (window.location.href = `/search?kw=${keyword}`)}
         />
       </div>
-      <a href="/" className="hover:text-orange-500 dark:hover:text-purple-500">
+      <a
+        href="/kblog"
+        className="hover:text-orange-500 dark:hover:text-purple-500"
+      >
         Home
       </a>
-      <a href="/" className="hover:text-orange-500 dark:hover:text-purple-500">
+      <a
+        href="/kblog"
+        className="hover:text-orange-500 dark:hover:text-purple-500"
+      >
         About me
       </a>
     </div>

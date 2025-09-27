@@ -63,14 +63,14 @@ const { article, prev, next } = Astro.props as {
           <span class="text-xl hover:text-orange-500 dark:hover:text-purple-400 cursor-pointer flex items-center">
             <ChevronLeft />
             {prev ? (
-              <a href={`/post/${prev.documentId}`}>{prev.title}</a>
+              <a href={`/kblog/post/${prev.documentId}`}>{prev.title}</a>
             ) : (
               "no previous page"
             )}
           </span>
           <span class="text-xl hover:text-orange-500 dark:hover:text-purple-400 cursor-pointer flex items-center">
             {next ? (
-              <a href={`/post/${next.documentId}`}>{next.title}</a>
+              <a href={`/kblog/post/${next.documentId}`}>{next.title}</a>
             ) : (
               "no next page"
             )}

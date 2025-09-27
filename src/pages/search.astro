@@ -27,7 +27,7 @@ import Layout from "@/layouts/Layout.astro";
       searchWrapper.innerHTML = data
         .map(
           (item) => `<div class="flex flex-col gap-2">
-            <a href="/post/${item.documentId}" class="hover:text-orange-500 dark:hover:text-purple-500 font-bold underline decoration-wavy">${item.title}</a>
+            <a href="/kblog/post/${item.documentId}" class="hover:text-orange-500 dark:hover:text-purple-500 font-bold underline decoration-wavy">${item.title}</a>
             <p>${item.description}</p>
         </div>
         `
