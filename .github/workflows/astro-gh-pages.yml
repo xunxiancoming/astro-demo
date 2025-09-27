@@ -44,6 +44,15 @@ jobs:
       - name: 构建 Astro 项目
         run: npm run build
       
+      - name: 验证构建产物
+        run: |
+          echo "检查 dist 目录内容："
+          ls -la dist/
+          echo "检查 bg6.svg 文件："
+          ls -la dist/bg6.svg
+          echo "检查文件内容："
+          head -5 dist/bg6.svg
+      
       - name: 设置 Pages
         uses: actions/configure-pages@v5
       

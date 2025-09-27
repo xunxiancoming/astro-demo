@@ -19,4 +19,9 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+
+  // 确保静态资源正确处理
+  build: {
+    assets: "assets",
+  },
 });
