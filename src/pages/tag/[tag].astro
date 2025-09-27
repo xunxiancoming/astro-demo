@@ -12,25 +12,24 @@ export async function getStaticPaths() {
       wrappedByKey: "data",
     })) || [];
 
-  console.log(data, "000");
-
   return data.map((item) => {
     return {
       params: {
-        tag: item.name,
+        tag: item.documentId,
       },
       props: {
         articles: item.articles,
+        category: item.name,
       },
     };
   });
 }
 
-const { articles = [] } = Astro.props;
+const { articles = [], category } = Astro.props;
 ---
 
 <Layout>
-  <Title title={`Tag 🙈 ${Astro.params.tag}`} />
+  <Title title={`Tag 🙈 ${category}`} />
   {
     articles.map((item) => (
       <div class="my-2 flex gap-4">
