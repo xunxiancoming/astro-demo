@@ -30,6 +30,11 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      - name: build with strapi data
+        run: |
+          # 设置 Strapi 访问令牌（安全存储）
+          echo "STRAPI_URL=https://authentic-thrill-9b6840eae9.strapiapp.com" >> .env
+          
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
@@ -37,8 +42,6 @@ jobs:
           destination: ./_site
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
-        env:
-          STRAPI_URL: 'https://authentic-thrill-9b6840eae9.strapiapp.com'
 
   # Deployment job
   deploy:
